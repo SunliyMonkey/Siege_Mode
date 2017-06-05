@@ -1,0 +1,77 @@
+ "显示行号  
+set nu
+
+"Tab键的宽度
+set tabstop=4
+
+"统一缩进为4
+set softtabstop=4
+set shiftwidth=4
+
+"不要用空格代替制表符
+set noexpandtab
+
+"在行和段开始处使用制表符
+set smarttab 
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+"突出显示当前行
+set cursorline
+set nocompatible
+
+"显示控制条  
+set ruler 
+
+"在处理未保存或只读文件的时候，弹出确认
+set confirm
+
+"******************搜索******************
+"搜索忽略大小写
+set ignorecase
+
+"搜索逐字符高亮
+set hlsearch
+set incsearch
+
+"高亮显示匹配的括号
+set showmatch
+
+"匹配括号高亮的时间（单位是十分之一秒）
+set matchtime=1
+"******************搜索******************
+
+
+"******************快捷键******************
+"映射全选 ctrl+a
+map <C-A> ggVG
+
+"C，C++ 按F9编译运行
+map <F9> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!java %<"
+    elseif &filetype == 'sh'
+        :!./%
+    endif
+endfunc
+
+
+"代码补全
+set completeopt=preview,menu
+
+"让vim记忆上次编辑的位置
+autocmd BufReadPost *
+			\ if line("'\"")>0&&line("'\"")<=line("$") |
+			\	exe "normal g'\"" |
+			\ endif
+"让vim记忆上次编辑的位置
